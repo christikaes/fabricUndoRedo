@@ -18,6 +18,14 @@
 
     canvas.add(rect);
 
+    fabric.Image.fromURL("https://pbs.twimg.com/profile_images/686613263811907584/Ni3AWru_.png", (img) => {
+        img.set({
+            width: 50,
+            height: 50
+        })
+        canvas.add(img);
+    });
+    
     canvas.on("object:modified", () => {
         past.push(present);
         present = {...canvas.toJSON()};
@@ -35,11 +43,17 @@
         canvas.loadFromJSON(present)
     }
 
+    const getHistory = () => {
+        return {
+            past,
+            present,
+            future
+        }
+    }
+
     window.control = {
         undo,
         redo,
-        past,
-        present,
-        future
+        getHistory
     };
 })();
